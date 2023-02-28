@@ -1,0 +1,95 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+{% load cart%}
+
+<div class="container">
+    <div class="border rounded p-4 m-4">
+      
+      <div class="table-responsive-md">
+        <p class="display-4 pl-4 ml-4">In your Cart </p>
+        <hr>
+        <table class="table table-primary">
+            <thead>
+                <tr>
+                    <th >sno</th>
+                    <th >Image</th>
+                    <th >Product</th>
+                    <th >Price(₹)</th>
+                    <th >Quantity</th>
+                    <th >Total(₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--is_in_cart-->
+                {% for product in products %}
+                <tr >
+                    <td >{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" class ="rounded-circle" src="{{product.image.url}}" alt="..." ></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          <tfoot> 
+            <tr>
+                <th colspan="5">Total(₹)</th>
+                <th colspan="5">(₹) {{products|total_cart_price:request.session.cart }} </th>
+               
+            </tr>
+          </tfoot>
+
+        </table>
+        <hr>
+      </div>
+      
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="m-3 p-3">
+            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-outline-info border rounded col-lg-3 float-lg-end" >
+                Checkout
+            </a>
+<!--MODAL-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Check Out Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="m-2 p-3 ">
+        <form action="/check-out" method="post">
+        {% csrf_token%}
+         <div class="mb-3">
+           <label for="" class="form-label">Address</label>
+           <input type="text" name="Address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+         </div>
+         <div class="mb-3">
+          <label for="" class="form-label">Phone-number</label>
+          <input type="text" name="Phone-number" id="" class="form-control" placeholder="" aria-describedby="helpId">
+        </div>
+      <input type="submit" class="btn btn-outline-info col-lg-6" value="Checkout">
+    </form>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <a  href="/" class="btn btn-outline-info bold">close</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

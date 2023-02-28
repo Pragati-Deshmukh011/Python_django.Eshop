@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <!--Navbar-->
+    
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/" class="bold">Alln1</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Store</a>
+          </li>
+      
+        </ul>
+        
+        {{customer}}
+        <ul class="navbar-nav my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active"  href="/cart">Cart
+               <span class="badge bg-info">{{request.session.cart.keys|length}}</span>
+              <span class="sr-only"></span></a>
+          </li>
+          {% if request.session.customer%}
+          
+          <li class="nav-item">
+            <a class="nav-link active"  href="/Orders">Orders<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active"  href="/logout">Log out<span class="sr-only"></span></a>
+          </li>
+          
+          {% else %}
+          
+          <li class="nav-item">
+            <a class="nav-link active"  href="/login">Login<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active"  href="/SignIn">SignIn<span class="sr-only"></span></a>
+          </li>
+          {% endif%}
+            </ul>
+      </div>
+    </div>
+  </nav>
+  {% block content %}{% endblock %}
+  </body>
+   <!--Navbar-->
